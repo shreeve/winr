@@ -262,6 +262,7 @@ es.each_with_index do |e, ei|
   puts IO.popen(["ruby", "-v"].join(" "), &:read) unless hush
   puts rt
 
+  # TODO: read this from e.command
   command = ["/usr/bin/env ruby"]
 
   # loop over context(s) and task(s)
