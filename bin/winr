@@ -297,8 +297,8 @@ full = cols.sum + (cols.size - 1) * 3
 rt, rm, rb = boxlines(wide, cols)
 rh = "│ %-*.*s │" % [wide, wide, "Rank"]
 rh << " %-*.*s │" % [full, full, "Performance".center(full)]
-
 puts rt, rh, rm
+
 flip = cs.size > 1 && ts.size == 1
 rank.each do |ips, ei, ci, ti|
   name = (flip ? cs[ci] : ts[ti]).name
