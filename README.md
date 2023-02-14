@@ -143,7 +143,7 @@ Available statistics:
 
   ips      iterations per second
   loops    number of iterations
-  spi      seconds for iteration
+  spi      seconds per iteration
   time     time to run all iterations
 ```
 
