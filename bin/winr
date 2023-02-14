@@ -160,8 +160,7 @@ def template
 
     trap("INT") { exit }
 
-    # def __winr_timer; Process.clock_gettime(Process::CLOCK_MONOTONIC); end
-    def __winr_timer; Time.now.to_f; end
+    def __winr_timer; Process.clock_gettime(Process::CLOCK_MONOTONIC); end
 
     <%= e.begin %>
     <%= c.begin %>
