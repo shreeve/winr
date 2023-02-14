@@ -236,7 +236,7 @@ cs = $config.contexts     || [{}]
 ts = $config.tasks        || [{}]
 
 # adjust script fields, if needed
-[es, cs].each do |item|
+[*es, *cs].each do |item|
   if item.script
     if item.begin || item.end
       abort "scripts for environments and contexts should go into begin or end"
