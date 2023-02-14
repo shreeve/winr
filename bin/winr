@@ -258,21 +258,19 @@ puts "```", [$0, *ARGV].shelljoin, "" unless hush
 
 # loop over environment(s)
 es.each_with_index do |e, ei|
-  puts IO.popen(["ruby", "-v"].join(" "), &:read) unless hush
-  puts rt
 
-  # TODO: read this from e.command
+  # TODO: get command from environment
   command = ["/usr/bin/env ruby"]
-
-  # loop over context(s) and task(s)
-  ys, xs = swap ? [ts, cs] : [cs, ts]
+  puts IO.popen(["ruby", "-v"].join(" "), &:read) unless hush
 
   # row: content, header
+  ys, xs = swap ? [ts, cs] : [cs, ts]
   rc = "Task" # or "Context"
   rh = "│ %-*.*s │" % [wide, wide, e.name(es.size > 1 ? "Env ##{ei + 1}" : rc)]
   rh = xs.inject(rh) {|s, x| s << " %-*.*s │" % [full, full, x.name("Results").center(full)] }
-  puts rh, rm
+  puts rt, rh, rm
 
+  # loop over context(s) and task(s)
   ys.each_with_index do |y, yi|
     print "│ %-*.*s │" % [wide, wide, y.name("Results")]
     xs.each_with_index do |x, xi|
@@ -280,6 +278,7 @@ es.each_with_index do |e, ei|
       delay = Tempfile.open(['winr-', '.rb']) do |file|
         t.loops = runs if runs
         code = tmpl.result(binding).rstrip + "\n"
+        puts "", "", code, "=" * 78, "" if hack
         write(file, code) do |path|
           runs, time = execute(command, path)
           t.loops ||= runs
@@ -287,7 +286,6 @@ es.each_with_index do |e, ei|
           rank << [runs/time, ei, ci, ti]
           print vals.zip(cols).map {|pair| " %s │" % scale(*pair) }.join
         end
-        puts "", code, "=" * 78 if hack
       end
     end
     print "\n"
