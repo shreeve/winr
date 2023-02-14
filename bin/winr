@@ -150,6 +150,29 @@ def compile(task, path)
   |
 end
 
+def template
+  <<~"end"
+    # ============================================================================
+    # Environment <%= ei + 1 %>: <%= e.name %>
+    #     Context <%= ci + 1 %>: <%= c.name %>
+    #        Task <%= ti + 1 %>: <%= t.name %>
+    # ============================================================================
+
+    trap("INT") { exit }
+
+    # def __winr_timer; Process.clock_gettime(Process::CLOCK_MONOTONIC); end
+    def __winr_timer; Time.now.to_f; end
+
+    <%= e.begin %>
+    <%= c.begin %>
+
+    <%= compile(t, file.path) %>
+
+    <%= c.end %>
+    <%= e.end %>
+  end
+end
+
 # ==[ Helpers ]==
 
 def boxlines(main, cols, runs=1)
@@ -204,28 +227,7 @@ end
 
 # read the winr script
 winr = ARGV.first or abort "missing winr script"
-
-# generate the code template
-tmpl = ERB.new(<<~"end")
-  # ============================================================================
-  # Environment <%= ei + 1 %>: <%= e.name %>
-  #     Context <%= ci + 1 %>: <%= c.name %>
-  #        Task <%= ti + 1 %>: <%= t.name %>
-  # ============================================================================
-
-  trap("INT") { exit }
-
-  # def __winr_timer; Process.clock_gettime(Process::CLOCK_MONOTONIC); end
-  def __winr_timer; Time.now.to_f; end
-
-  <%= e.begin %>
-  <%= c.begin %>
-
-  <%= compile(t, file.path) %>
-
-  <%= c.end %>
-  <%= e.end %>
-end
+tmpl = ERB.new(template)
 
 # grok the config
 $config = eval(File.read(winr))
