@@ -60,6 +60,7 @@ show.empty? and abort "invalid list of statistics #{opts[:stats].inspect}"
 
 # ==[ Define some constants, ansi codes, and make hashes more flexible ]==
 
+# used by the scale() method below
 Infinity = 1.0 / 0
 Overflow = "\n\nERROR: numeric overflow"
 
