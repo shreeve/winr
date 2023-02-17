@@ -75,7 +75,7 @@ module Ansi
       ansi
     end
     def ansi (*list); list.map {|code| "\e[#{$ansi[code.to_s] || 0}m"}.join + self; end
-    def ansi!(*list); ansi(*list) + "\e[0m"; end
+    def ansi!(*list); ansi(*list, :reset); end
   end
 end
 
