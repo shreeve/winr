@@ -117,6 +117,10 @@ $ winr test/sum.rb
 └──────────────────┴─────────────┴──────────────┴────────┘
 ```
 
+The following screenshot shows the output (notice the units and color), when the value of `max` is changed to `1e3`.
+
+<img src="https://user-images.githubusercontent.com/142875/219610505-64569102-f294-4b2b-b08b-c103d18da247.png" width="640">
+
 ## Install
 
 Install via `rubygems` with:
