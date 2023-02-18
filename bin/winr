@@ -20,6 +20,7 @@ trap("INT") { abort "\n" }
 require "erb"
 require "optparse"
 require "shellwords"
+require "yaml"
 require "tempfile"
 
 OptionParser.new.instance_eval do
@@ -225,15 +226,24 @@ end
 
 # ==[ Workflow ]==
 
-# read the winr script
-winr = ARGV.first or abort "missing winr script"
+# compile the template
 tmpl = ERB.new(template)
 
-# grok the config
-$config = eval(File.read(winr))
-es = $config.environments || [{}]
-cs = $config.contexts     || [{}]
-ts = $config.tasks        || [{}]
+# read the winr script
+winr = ARGV.first or abort "missing winr script"
+case File.extname(winr)
+when ".yaml"
+  $config = YAML.load(File.read(winr))
+  es = [ {} ]
+  cs = [ begin: $config["begin"] ]
+  ts = $config["tasks"].map {|k,v| { name: k, script: v } }
+when ".rb"
+  $config = eval(File.read(winr))
+  es = $config.environments || [{}]
+  cs = $config.contexts     || [{}]
+  ts = $config.tasks        || [{}]
+else abort "unknown winr script format '#{winr}'"
+end
 
 # adjust script fields, if needed
 [*es, *cs].each do |item|
