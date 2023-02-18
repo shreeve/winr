@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "winr"
-  s.version     = "1.0.4"
+  s.version     = "1.0.5"
   s.author      = "Steve Shreeve"
   s.email       = "steve.shreeve@gmail.com"
   s.summary     =

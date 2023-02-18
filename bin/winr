@@ -196,7 +196,7 @@ end
 
 def scale(show, unit)
   slot = 3
-  span = ["G", "M", "K", " ", "m", "µ", "p"]
+  span = ["G", "M", "K", " ", "m", "µ", "n"]
   [0, Infinity].include?(show) and abort Overflow
   show *= 1000.0 and slot += 1 while show > 0 && show < 1.0
   show /= 1000.0 and slot -= 1 while show >= 1000.0
