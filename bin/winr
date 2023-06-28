@@ -217,12 +217,13 @@ def execute(command, path)
   eval(File.read(path))
 end
 
-def scale(show, unit)
+def scale(show, unit, base=1000)
+  base = base.to_f
   slot = 3
   span = ["G", "M", "K", " ", "m", "µ", "n"]
   [0, Infinity].include?(show) and abort Overflow
-  show *= 1000.0 and slot += 1 while show > 0 && show < 1.0
-  show /= 1000.0 and slot -= 1 while show >= 1000.0
+  show *= base and slot += 1 while show > 0 && show < 1.0
+  show /= base and slot -= 1 while show >= base
   slot.between?(0, 6) or abort Overflow
   "%6.2f %s%s" % [show, span[slot], unit]
 end
