@@ -44,6 +44,8 @@ OptionParser.new.instance_eval do
         time     time to run all iterations
   end
 
+  Kernel.abort to_s if ARGV.empty?
+
   self
 end.parse!(into: opts={}) rescue abort($!.message)
 
