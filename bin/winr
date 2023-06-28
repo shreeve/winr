@@ -178,6 +178,26 @@ end
 
 # ==[ Helpers ]==
 
+# ┌───┬───┐ ╔═══╦═══╗ ╓───╥───╖ ╒═══╤═══╕ ╭────╮
+# │   │   │ ║   ║   ║ ║   ║   ║ │   │   │ │test│
+# ├───┼───┤ ╠═══╬═══╣ ╟───╫───╢ ╞═══╪═══╡ ╰────╯
+# │   │   │ ║   ║   ║ ║   ║   ║ │   │   │
+# └───┴───┘ ╚═══╩═══╝ ╙───╨───╜ ╘═══╧═══╛
+
+# Returns box top, middle, and bottom rows, as follows:
+#
+# main = width of main column
+# cols = array of data column widths
+# runs = count of data column repeats
+#
+# For example: puts boxlines(10, [3,4,5], 2)
+#
+# ╭────────────┬────────────────────┬────────────────────╮ <= top     # returned here
+# │ 1234567890 │ Instance 1         │ Instance 2         │ <= HEADER  # generated in your code
+# ├────────────┼─────┬──────┬───────┼─────┬──────┬───────┤ <= middle  # returned here
+# │ 1234567890 │ 123 │ 1234 │ 12345 │ 123 │ 1234 │ 12345 │ <= CONTENT # generated in your code
+# ╰────────────┴─────┴──────┴───────┴─────┴──────┴───────╯ <= bottom  # returned here
+
 def boxlines(main, cols, runs=1)
   [ "╭┬──╮",
     "├┼┬─┤",
