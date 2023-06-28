@@ -326,7 +326,7 @@ es.each_with_index do |e, ei|
   puts rb, ""
 end
 
-# show the comparison
+# show performance header
 rank.sort! {|a, b| b[0] <=> a[0] }
 fast = rank.first[0]
 slow = rank.last[0]
@@ -337,9 +337,10 @@ cols.pop if (es.size == 1) && (cs.size == 1)
 full = cols.sum + (cols.size - 1) * 3
 rt, rm, rb = boxlines(wide, cols)
 rh = "│ %-*.*s │" % [wide, wide, "Rank"]
-rh << " %-*.*s │" % [full, full, "Performance".center(full)]
+rh << " %-*.*s │" % [full, full, "Performance (Env/Context/Test)".center(full)]
 puts rt, rh, rm
 
+# show performance comparison
 flip = cs.size > 1 && ts.size == 1
 rank.each do |ips, ei, ci, ti|
   name = (flip ? cs[ci] : ts[ti]).name
