@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "winr"
-  s.version     = "1.1.0"
+  s.version     = `grep -m 1 '^\s*@version' bin/winr | cut -f 2 -d '"'`
   s.author      = "Steve Shreeve"
   s.email       = "steve.shreeve@gmail.com"
   s.summary     =

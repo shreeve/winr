@@ -14,7 +14,14 @@
       begin: <<~"|",
         require "digest/md5"
 
-        max = 1e5.to_i
+        max = 5e4.to_i
+      |
+    },
+    {
+      begin: <<~"|",
+        require "digest/md5"
+
+        max = 1e3.to_i
       |
     },
   ],
@@ -34,5 +41,5 @@
       |
     },
   ],
-  warmup: 3,
+  warmup: 2,
 }
