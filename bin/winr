@@ -179,9 +179,9 @@ end
 # ==[ Helpers ]==
 
 def boxlines(main, cols, runs=1)
-  [ "┌┬──┐",
+  [ "╭┬──╮",
     "├┼┬─┤",
-    "└┴┴─┘" ]
+    "╰┴┴─╯" ]
   .map do |str|
     list = [main, *(cols * runs)]
     list.map.with_index do |col, i|
