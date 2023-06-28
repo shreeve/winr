@@ -62,8 +62,7 @@ swap = !opts[:reverse]
 # option errors
 show.empty? and abort "invalid list of statistics #{opts[:stats].inspect}"
 
-# ==[ Define some constants, ansi codes, and make hashes more flexible ]==
-
+# ==[ Ansi helper ]==
 
 module Ansi
   refine String do
@@ -82,6 +81,8 @@ module Ansi
 end
 
 using Ansi
+
+# ==[ FlexHash helper ]==
 
 module FlexHash
   refine Hash do
@@ -244,7 +245,7 @@ def write(file, data)
   yield file.path
 end
 
-# ==[ Workflow ]==
+# ==[ Execute benchmarking scripts ]==
 
 # compile the template
 tmpl = ERB.new(template)
@@ -324,7 +325,7 @@ es.each_with_index do |e, ei|
   puts rb, ""
 end
 
-# ==[ Performance comparison ]==
+# ==[ Display benchmarking results ]==
 
 # header
 rank.sort! {|a, b| b[0] <=> a[0] }
