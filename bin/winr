@@ -64,9 +64,6 @@ show.empty? and abort "invalid list of statistics #{opts[:stats].inspect}"
 
 # ==[ Define some constants, ansi codes, and make hashes more flexible ]==
 
-# used by the scale() method below
-Infinity = 1.0 / 0
-Overflow = "\n\nERROR: numeric overflow"
 
 module Ansi
   refine String do
@@ -222,11 +219,10 @@ def scale(show, unit, base=1000)
   base = base.to_f
   slot = 3
   span = ["G", "M", "K", " ", "m", "µ", "n"]
-  [0, Infinity].include?(show) and abort Overflow
+  show.zero? and return "(overflow)"
   show *= base and slot += 1 while show > 0 && show < 1.0
   show /= base and slot -= 1 while show >= base
-  slot.between?(0, 6) or abort Overflow
-  "%6.2f %s%s" % [show, span[slot], unit]
+  slot.between?(0, 6) ? "%6.2f %s%s" % [show, span[slot], unit] : "(overflow)"
 end
 
 def stats(list, scope=nil)
