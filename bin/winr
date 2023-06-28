@@ -69,7 +69,7 @@ Overflow = "\n\nERROR: numeric overflow"
 
 module Ansi
   refine String do
-    $ansi = <<~"".scan(/(\d+)(?:\/(\d+))?=(\w+)/).inject({}) do |ansi, (code, undo, name)|
+    $ansi ||= <<~"".scan(/(\d+)(?:\/(\d+))?=(\w+)/).inject({}) do |ansi, (code, undo, name)|
       0=reset 1/22=bold 2/22=dim 3/23=italic 4/24=under 5/25=blink 7/27=inverse 9/29=strike
       30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white 39=default
       40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white 49=default
