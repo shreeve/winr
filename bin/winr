@@ -4,7 +4,7 @@
 # winr - A quick and lightweight benchmarking tool for Ruby
 #
 # Author: Steve Shreeve (steve.shreeve@gmail.com)
-#   Date: Feb 14, 2023
+#   Date: June 28, 2023
 # ============================================================================
 # GOALS:
 # 1. Provide a simple way to benchmark code
@@ -24,6 +24,7 @@ require "yaml"
 require "tempfile"
 
 OptionParser.new.instance_eval do
+  @version = "1.2.0"
   @banner  = "usage: #{program_name} [options] <dir ...>"
 
   on "-c"               , "--[no-]color", "Enable color output (default is true)", TrueClass
